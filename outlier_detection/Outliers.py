@@ -3,17 +3,6 @@ import numpy as np
 import modin.pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
-from sklearn.ensemble import IsolationForest
-
-
-class IsolationForestOutlier:
-    """
-    Sklearn's Isolation Forest implementaion.
-    """
-
-    def __init__(self):
-        pass
-
 
 class ZScoreOutlier:
     """
@@ -30,10 +19,16 @@ class ZScoreOutlier:
         self.outliers_index = []
 
     def detect_outliers(self):
-        mean = np.mean(self.ts)
-        sd = np.std(self.ts)
+        """
+        Runs outlier detection on ts
+        :return: list
+        """
         threshold = self.threshold
-
+        try:
+            mean = np.mean(self.ts)
+            sd = np.std(self.ts)
+        except TypeError as e:
+            raise ValueError('Passes ts contained None values. Input list should not have None values.')
         for k, i in enumerate(self.ts):
             z = (i-mean)/sd
             if abs(z) > threshold:  # identify outliers
@@ -330,9 +325,12 @@ class ESDOutlier:
             ma = pd.DataFrame(df[['ma']].iloc[outliers_index,0].sort_index())
             anoma_points = pd.DataFrame(df[['X']].iloc[outliers_index, 0].sort_index())
             outlier_df = pd.DataFrame()
-            outlier_df['X'] = anoma_points['X'].values
-            outlier_df['ma'] = ma['ma'].values
-            outlier_df['outlier_index'] = anoma_points.index
+            try:
+                outlier_df['X'] = anoma_points['X'].values
+                outlier_df['ma'] = ma['ma'].values
+                outlier_df['outlier_index'] = anoma_points.index
+            except ValueError as e:
+                raise ValueError('Array has Null values. Please remove all the Null values in the input array.')
             greater_than_df_ma_outliers = outlier_df[outlier_df['X'] > outlier_df['ma']]
             self.anoma_points = anoma_points
-            return greater_than_df_ma_outliers[['X', 'outlier_index']]
+            return greater_than_df_ma_outliers['outlier_index'].values

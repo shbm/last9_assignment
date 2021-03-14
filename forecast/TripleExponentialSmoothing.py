@@ -111,10 +111,6 @@ class TripleExponentialSmoothing:
         self.forecast = np.array(result)
         return self.forecast
 
-    def root_mse(self, x, y):
-        mse = np.square(np.subtract(x, y)).mean()
-        rmse = np.sqrt(mse)
-        return rmse
 
 if __name__ == '__main__':
     size = 100
