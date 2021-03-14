@@ -37,7 +37,7 @@ of March to July. An approach to improve this step would be perform a weighted l
 temperature and humidity to get a real world simulated data. It would look like
 `units[i] = w_temp*temp[i] + w_humidity*huimdty[i] + base_units`. Here `temp` and `humidity` is real data collected.
 
-##### Perform Forecast for next 15 days
+#### Perform Forecast for next 15 days
 
 Here I used an implementation of Triple Exponential Smoothing also called Holt-Winters' Method. It is 
 an additive combination of level, trend and seasonality. https://otexts.com/fpp2/holt-winters.html is a great
@@ -47,7 +47,7 @@ such as "whether the day is a weekday or not", "national holiday or not". These 
 amount if electricity units being consumed. On top of this data we do regression modelling using 
 Linear Regression, XGBoost Regressor, Random Forest Regressor etc.
 
-##### Perform Anomaly Detection
+#### Perform Anomaly Detection
 
 Here I have used only classical statistical approaches like Z-Score and ESD Outlier test which is a combination
 of various statistical methods like Moving Average, t distribution p-value. I plot both outliers in the 
@@ -67,4 +67,5 @@ $ python run.py
 
 `run.py` has two functions. One uses TimeSeriesCV and scipy's optimize to find the optimized parameters.
 The other functions uses multiple for loop and iterates over a range of possible values to find the
-apt. alpha, beta, gamma and seasonality params. I used *rmse*  as the optimizing metric.
+apt. alpha, beta, gamma and seasonality params. I used *rmse*  as the optimizing metric. [Click here to view the notebook
+at nbviewer](https://nbviewer.jupyter.org/github/shbm/last9_assignment/blob/master/Run.ipynb)
