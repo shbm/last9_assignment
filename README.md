@@ -25,9 +25,9 @@ Forecast reading from 15th March to 28th March of 2021, to detect if it is an an
 ## Solution Approach
 
 It is mainly a three part solution.
-* Generate time series data ([GenerateData.py](<./last9py/data_gen/GenerateData.py>))
-* Perform Forecast for next 15 days ([TripleExponentialSmoothing.py](<./last9py/data_gen/TripleExponentialSmoothing.py>))
-* Perform Anomaly Detection ([Outliers.py](<./last9py/outlier_detection/Outliers.py>))
+* Generate time series data (GenerateData.py)
+* Perform Forecast for next 15 days (TripleExponentialSmoothing.py)
+* Perform Anomaly Detection (Outliers.py)
 
 #### Generate time series data
 
